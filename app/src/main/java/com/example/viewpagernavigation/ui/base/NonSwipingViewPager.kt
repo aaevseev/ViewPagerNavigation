@@ -1,4 +1,4 @@
-package com.example.viewpagernavigation.shared.views
+package com.example.viewpagernavigation.ui.base
 
 import android.content.Context
 import androidx.viewpager.widget.ViewPager

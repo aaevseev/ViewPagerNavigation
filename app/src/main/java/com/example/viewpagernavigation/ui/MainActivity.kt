@@ -1,37 +1,52 @@
-package com.example.viewpagernavigation
+package com.example.viewpagernavigation.ui
 
+import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.view.MenuItem
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import androidx.appcompat.app.AppCompatActivity
-import android.view.MenuItem
-import com.example.viewpagernavigation.shared.views.BaseFragment
+import com.example.viewpagernavigation.R
+import com.example.viewpagernavigation.ui.base.BaseFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity(),
-        ViewPager.OnPageChangeListener,
-        BottomNavigationView.OnNavigationItemReselectedListener,
-        BottomNavigationView.OnNavigationItemSelectedListener {
-
+    ViewPager.OnPageChangeListener,
+    BottomNavigationView.OnNavigationItemReselectedListener,
+    BottomNavigationView.OnNavigationItemSelectedListener {
 
     // overall back stack of containers
     private val backStack = Stack<Int>()
 
     // list of base destination containers
-    private val fragments = listOf(
-            BaseFragment.newInstance(R.layout.content_home_base, R.id.toolbar_home, R.id.nav_host_home),
-            BaseFragment.newInstance(R.layout.content_library_base, R.id.toolbar_library, R.id.nav_host_library),
-            BaseFragment.newInstance(R.layout.content_settings_base, R.id.toolbar_settings, R.id.nav_host_settings))
 
+    private val fragments = listOf(
+        BaseFragment.newInstance(R.layout.content_home_base, R.id.toolbar_home, R.id.nav_host_home),
+        BaseFragment.newInstance(
+            R.layout.content_library_base,
+            R.id.toolbar_library,
+            R.id.nav_host_library
+        ),
+        BaseFragment.newInstance(
+            R.layout.content_settings_base,
+            R.id.toolbar_settings,
+            R.id.nav_host_settings
+        )
+    )
 
     // map of navigation_id to container index
     private val indexToPage = mapOf(0 to R.id.home, 1 to R.id.library, 2 to R.id.settings)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val intent = Intent(this, TutorialActivity::class.java)
+        startActivity(intent)
+
         setContentView(R.layout.activity_main)
 
         // setup main view pager
@@ -52,6 +67,7 @@ class MainActivity : AppCompatActivity(),
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val position = indexToPage.values.indexOf(item.itemId)
         if (main_pager.currentItem != position) setItem(position)
+
         return true
     }
 
@@ -84,6 +100,7 @@ class MainActivity : AppCompatActivity(),
     override fun onPageSelected(page: Int) {
         val itemId = indexToPage[page] ?: R.id.home
         if (bottom_nav.selectedItemId != itemId) bottom_nav.selectedItemId = itemId
+
     }
 
     private fun setItem(position: Int) {
@@ -98,11 +115,18 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    inner class ViewPagerAdapter : FragmentPagerAdapter(supportFragmentManager) {
+    fun hideBottom() {
+        bottom_nav.visibility = View.GONE
+    }
+
+    fun showBottom() {
+        bottom_nav.visibility = View.VISIBLE
+    }
+
+    inner class ViewPagerAdapter :
+        FragmentPagerAdapter(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
         override fun getItem(position: Int): Fragment = fragments[position]
-
         override fun getCount(): Int = fragments.size
-
     }
 }

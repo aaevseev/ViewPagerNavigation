@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/settings_dest"
-        android:name="com.example.viewpagernavigation.modules.settings.SettingsFragment"
+        android:name="com.example.viewpagernavigation.ui.settings.SettingsFragment"
         android:label="Settings">
         <action
             android:id="@+id/action_profile_settings"
@@ -16,10 +16,10 @@
     </fragment>
     <fragment
         android:id="@+id/privacy_settings_dest"
-        android:name="com.example.viewpagernavigation.modules.settings.PrivacySettingsFragment"
+        android:name="com.example.viewpagernavigation.ui.settings.PrivacySettingsFragment"
         android:label="Privacy Settings" />
     <fragment
         android:id="@+id/profile_settings_dest"
-        android:name="com.example.viewpagernavigation.modules.settings.ProfileSettingsFragment"
+        android:name="com.example.viewpagernavigation.ui.settings.ProfileSettingsFragment"
         android:label="Profile Settings" />
 </navigation>

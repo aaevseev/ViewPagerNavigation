@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/library_dest"
-        android:name="com.example.viewpagernavigation.modules.library.LibraryFragment"
+        android:name="com.example.viewpagernavigation.ui.library.LibraryFragment"
         android:label="Library">
         <action
             android:id="@+id/action_read"
@@ -13,7 +13,7 @@
     </fragment>
     <fragment
         android:id="@+id/book_dest"
-        android:name="com.example.viewpagernavigation.modules.library.BookFragment"
+        android:name="com.example.viewpagernavigation.ui.library.BookFragment"
         android:label="Book">
         <deepLink
             android:id="@+id/deepLink"
